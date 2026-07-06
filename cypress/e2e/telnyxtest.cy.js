@@ -2,7 +2,7 @@ import HomePage from '../TelnyxPages/HomePage'
 import SignUpPage from '../TelnyxPages/SignUpPage'
 import OurNetworkPage from '../TelnyxPages/OurNetworkPage'
 import PartnersPage from '../TelnyxPages/PartnersPage'
-import ConverstationalAiPage from '../TelnyxPages/ConverstationalAiPage'
+import ConversationalAiPage from '../TelnyxPages/ConversationalAiPage'
 import StoragePage from '../TelnyxPages/StoragePage'
 import AiPage from '../TelnyxPages/AiPage'
 import LoginPage from '../TelnyxPages/LoginPage'
@@ -72,8 +72,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
       cy.url({ timeout: 15000 }).should('include', '/voice-ai-agents');
       AiPage.SeePricingBtn.filter(':visible').first().scrollIntoView().should('be.visible').click()
       cy.url().should('include', '/pricing/conversational-ai')
-      ConverstationalAiPage.CloudStorageTitle.scrollIntoView().should('be.visible', { timeout: 10000 })
-      ConverstationalAiPage.SeePricingBtn.click()
+      ConversationalAiPage.CloudStorageTitle.scrollIntoView().should('be.visible', { timeout: 10000 })
+      ConversationalAiPage.SeePricingBtn.click()
       cy.url().should('include', '/pricing/storage')
       StoragePage.PayTitle.scrollIntoView().should('be.visible')
       StoragePage.CurrencyBtn.click()
