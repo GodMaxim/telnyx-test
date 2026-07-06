@@ -1,0 +1,8 @@
+Plaintext
+node_modules/
+cypress/screenshots/
+cypress/videos/
+.DS_Store
+.vscode/
+*.log
+.env
