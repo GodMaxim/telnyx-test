@@ -38,16 +38,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Increase swap space
-        run: |
-          sudo swapoff -a
-          sudo fallocate -l 4G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+      run: |
+        sudo swapoff -a
+        sudo fallocate -l 4G /swapfile
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
+      -name: Cypress run
+      uses: cypress-io/github-action@v6
+    with:
             record: true
             browser: chrome
             headless: true
