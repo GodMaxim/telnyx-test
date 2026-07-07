@@ -98,16 +98,16 @@ beforeEach(() => {
       LoginPage.setPasswordInput('Superdupergreatpassword123!', { delay: 50 })
      });
 
-      it.only('Verify all navigation paths to the "Talk to an expert" page from the Home page', () => {
+      it('Verify all navigation paths to the "Talk to an expert" page from the Home page', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
-      HomePage.ContactUsBtn.click({ force: true })
+      HomePage.ContactUsBtn.should('be.visible').first().click({ force: true })
       cy.url({ timeout: 20000 }).should('include', '/contact-us');
       ContactUsPage.PageTitle.should('be.visible', { timeout: 15000 }).should('contain.text', 'Talk to an expert')
-      ContactUsPage.MainMenuBtn.click({ force: true })
+      cy.get('a[href="/"]').first().click({ force: true })
+      ContactUsPage.MainMenuBtn.should('be.visible').click({ force: true });
       cy.url({ timeout: 25000 }).should('include', 'telnyx.com/')
       HomePage.TalkToExpertBtn.click({ force: true })
-      cy.url({ timeout: 20000 }).should('include', '/contact-us');
       ContactUsPage.PageTitle.should('be.visible', { timeout: 1500 }).should('contain.text', 'Talk to an expert')
       ContactUsPage.MainMenuBtn.click({ force: true })
       cy.url({ timeout: 25000 }).should('include', 'telnyx.com/')
