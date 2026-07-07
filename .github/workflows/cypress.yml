@@ -17,8 +17,7 @@ jobs:
           sudo mkswap /swapfile
           sudo swapon /swapfile
 
-          
-         name: Cypress run
+      - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
