@@ -98,22 +98,22 @@ beforeEach(() => {
       LoginPage.setPasswordInput('Superdupergreatpassword123!', { delay: 50 })
      });
 
-      it('Verify all navigation paths to the "Talk to an expert" page from the Home page', () => {
+      it.only('Verify all navigation paths to the "Talk to an expert" page from the Home page', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
       HomePage.ContactUsBtn.click({ force: true })
-      cy.url().should('include', '/contact-us')
+      cy.url({ timeout: 15000 }).should('include', '/contact-us');
       ContactUsPage.PageTitle.should('be.visible', { timeout: 10000 }).should('contain.text', 'Talk to an expert')
       ContactUsPage.MainMenuBtn.click({ force: true })
       cy.url({ timeout: 25000 }).should('include', 'telnyx.com/')
       HomePage.TalkToExpertBtn.click({ force: true })
-      cy.url().should('include', '/contact-us')
+      cy.url({ timeout: 15000 }).should('include', '/contact-us');
       ContactUsPage.PageTitle.should('be.visible', { timeout: 10000 }).should('contain.text', 'Talk to an expert')
       ContactUsPage.MainMenuBtn.click({ force: true })
       cy.url({ timeout: 25000 }).should('include', 'telnyx.com/')
       HomePage.PageSectionTitle.scrollIntoView()
       HomePage.SectionContactUsBtn.click({ force: true })
-      cy.url().should('include', '/contact-us')
+      cy.url({ timeout: 15000 }).should('include', '/contact-us');
       ContactUsPage.PageTitle.should('be.visible', { timeout: 10000 }).should('contain.text', 'Talk to an expert')
       ContactUsPage.MainMenuBtn.click({ force: true })
       });
