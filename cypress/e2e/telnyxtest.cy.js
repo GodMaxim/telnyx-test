@@ -10,29 +10,32 @@ import ContactUsPage from '../TelnyxPages/ContactUsPage'
 import IntegrationPage from '../TelnyxPages/IntegrationPage'
 
 Cypress.on('uncaught:exception', (err, runnable) => { 
-  return false;
-  })
+  if (err.message.includes('registerTool')) {
+    return false;
+  }
+    return false;
+});
 
   describe('Telnyx site test', () => {
-  xit('Verify navigation to the Sign-Up page', () => {
+  it('Verify navigation to the Sign-Up page', () => {
     cy.visit('https://telnyx.com/')
     HomePage.AcceptCookiesBtn.click();
     HomePage.clickOnSignUpBtn()
     cy.url().should('include', '/sign-up')
-    SignUpPage.SignUpTitle.should('be.visible', { timeout: 10000 }).should('contain.text', 'Create your account')
+    SignUpPage.SignUpTitle.should('be.visible', { timeout: 15000 }).should('contain.text', 'Create your account')
   })
 
-   xit('Verify the "Sign Up" navigation from the "Our Network" page', () => {
+   it('Verify the "Sign Up" navigation from the "Our Network" page', () => {
     cy.visit('https://telnyx.com/')
     HomePage.AcceptCookiesBtn.click();
     HomePage.OurNetworkBtn.scrollIntoView().should('be.visible').click()
-    cy.url().should('include', '/our-network')
-    OurNetworkPage.GlobalNetworkTitle.should('be.visible', { timeout: 10000 }).should('contain.text', 'Our private, global network')
-    OurNetworkPage.clickOnSignUpBtn()
+    cy.url({ timeout: 15000 }).should('include', '/our-network')
+    OurNetworkPage.GlobalNetworkTitle.should('be.visible', { timeout: 15000 }).should('contain.text', 'Our private, global network')
+    OurNetworkPage.SignUpBtn.click({ force: true })
     cy.url().should('include', '/sign-up')
     })
 
-    xit('Verify navigation to the "Become a Partner" application form', () => {
+    it('Verify navigation to the "Become a Partner" application form', () => {
     cy.visit('https://telnyx.com/')
     HomePage.AcceptCookiesBtn.click()
     HomePage.WhyTelnyxBtn.click()
@@ -42,30 +45,29 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     cy.url().should('include', 'https://partners.telnyx.com/login?apply=true')   
 })
 
-    xit('Verify the email newsletter subscription functionality', () => {
+    it('Verify the email newsletter subscription functionality', () => {
     cy.visit('https://telnyx.com/')
     HomePage.AcceptCookiesBtn.click()
-    HomePage.ShopBtn.scrollIntoView().invoke('removeAttr', 'target').click()
-    cy.origin('https://shop.telnyx.com', () => {
+      HomePage.ShopBtn.scrollIntoView().invoke('removeAttr', 'target').click()
     cy.contains('h2', 'Subscribe to our email').scrollIntoView().should('be.visible')
     cy.get('input[type="email"]').type('myemail@gmail.com').should('have.value', 'myemail@gmail.com')
     cy. get('#Subscribe')
-  });
-   });
+      });
 
-    xit('Verify product search functionality in the shop', () => {
+    it('Verify product search functionality in the shop', () => {
     cy.visit('https://telnyx.com/')
     HomePage.AcceptCookiesBtn.click()
-    HomePage.ShopBtn.scrollIntoView().invoke('removeAttr', 'target').click()
-    cy.origin('https://shop.telnyx.com', () => {
+    HomePage.ShopBtn.scrollIntoView().invoke('attr', 'href').then((href) => {
+      cy.visit(href);
+      })
+    Cypress.on('uncaught:exception', () => false);
       cy.url().should('include', 'shop.telnyx.com');
       cy.get('summary[aria-label="Search"]').click()
       cy.get('input#Search-In-Modal').type('Hat{enter}')
-      cy.get('.card').should('have.length.greaterThan', 0).first().scrollIntoView().should('be.visible')
-      });
+      cy.get('.card', { timeout: 15000 }).should('have.length.greaterThan', 0).first().scrollIntoView().should('be.visible')
       });
 
-      xit('Verify currency switching functionality on the pricing', () => {
+      it('Verify currency switching functionality on the pricing', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
       HomePage.AiAssistantBtn.scrollIntoView().click()
@@ -81,7 +83,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
       cy.contains('€', { timeout: 10000 }).should('be.visible');
      });
 
-     xit('Error message on invalid login credentials', () => {
+     it('Error message on invalid login credentials', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
       HomePage.LogInBtn.invoke('removeAttr', 'target').click()
@@ -90,7 +92,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
       LoginPage.setPasswordInput('Superdupergreatpassword123!', { delay: 50 })
      });
 
-      xit('Verify all navigation paths to the "Talk to an expert" page from the Home page', () => {
+      it('Verify all navigation paths to the "Talk to an expert" page from the Home page', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
       HomePage.ContactUsBtn.click({ force: true })
@@ -110,7 +112,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
       ContactUsPage.MainMenuBtn.click({ force: true })
       });
 
-      xit('Verify search functionality for Microsoft Teams integration', () => {
+      it('Verify search functionality for Microsoft Teams integration', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
       HomePage.DevelopersBtn.click()
@@ -120,7 +122,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
       cy.url({ timeout: 10000 }).should('include', '/microsoft-teams')
       });
 
-      xit('Verify the built-in AI chat agent responsiveness', () => {
+      it('Verify the built-in AI chat agent responsiveness', () => {
       cy.visit('https://telnyx.com/')
       HomePage.AcceptCookiesBtn.click()
       HomePage.AIChat.scrollIntoView({ block: 'center', timeout: 10000 }).should('be.visible');
@@ -131,4 +133,5 @@ Cypress.on('uncaught:exception', (err, runnable) => {
       HomePage.AiAnswerText.should('be.visible', { timeout: 10000 }).and('not.be.empty')
       HomePage.AiAnswerText.should('contain', 'Hello! How can I help you today?');
       });
-});
+      });
+  
