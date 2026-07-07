@@ -16,12 +16,18 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     return false;
 });
 
+beforeEach(() => {
+  cy.clearCookies();
+  cy.clearLocalStorage();
+  });
+
   describe('Telnyx site test', () => {
   it('Verify navigation to the Sign-Up page', () => {
     cy.visit('https://telnyx.com/')
     HomePage.AcceptCookiesBtn.click();
     HomePage.clickOnSignUpBtn()
     cy.url().should('include', '/sign-up')
+    cy.wait(10000)
     SignUpPage.SignUpTitle.should('be.visible', { timeout: 15000 }).should('contain.text', 'Create your account')
   })
 
