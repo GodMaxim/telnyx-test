@@ -1,4 +1,4 @@
-class PartnersApplyPage {
-    get BecomePartnerBtn() { return cy.get ('a[href="https://partners.telnyx.com/login?apply=true"]').first() }
+class PartnersPage {
+    get BecomePartnerBtn() { return cy.contains ('a[href="https://partners.telnyx.com/login?apply=true"]', 'Become a partner today') }
 }
-export default new PartnersApplyPage()
+export default new PartnersPage()

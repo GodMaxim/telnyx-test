@@ -1,6 +1,6 @@
 class OurNetworkPage {
     get GlobalNetworkTitle() { return cy.get ('h1') }
-    get SignUpBtn() { return cy.get ('a[href="/sign-up"]').eq(1) }
+    get SignUpBtn() { return cy.contains ('a[href="/sign-up"]', 'Sign up') }
 
     clickOnSignUpBtn() {
         this.SignUpBtn.click()
