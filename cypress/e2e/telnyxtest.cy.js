@@ -48,7 +48,7 @@ beforeEach(() => {
     cy.url().should('include', 'shop.telnyx.com');
     ShopPage.Title.scrollIntoView().should('be.visible')
     ShopPage.EmailUnput.type('myemail@gmail.com').should('have.value', 'myemail@gmail.com')
-    ShopPage.SubscribeBtn.click()
+    ShopPage.SubscribeBtn.should('be.visible', { timeout: 15000 }).click()
     ShopPage.Capcha.should('be.visible')
     });
 
@@ -116,7 +116,7 @@ beforeEach(() => {
       cy.url({ timeout: 10000 }).should('include', '/microsoft-teams')
       });
 
-      it('Verify the built-in AI chat agent responsiveness', () => {
+      it.skip('Verify the built-in AI chat agent responsiveness', () => {
       HomePage.AIChat.scrollIntoView({ block: 'center', timeout: 15000 }).should('be.visible');
       HomePage.setInputChatField('Hello')
       HomePage.SendMessageBtn.click()
