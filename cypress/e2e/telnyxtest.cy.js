@@ -48,8 +48,10 @@ beforeEach(() => {
     cy.url().should('include', 'shop.telnyx.com');
     ShopPage.Title.scrollIntoView().should('be.visible')
     ShopPage.EmailUnput.type('myemail@gmail.com').should('have.value', 'myemail@gmail.com')
-    ShopPage.SubscribeBtn.should('be.visible', { timeout: 15000 }).click({ force: true })
-    ShopPage.Capcha.should('be.visible', { timeout: 15000 })
+    ShopPage.SubscribeBtn.should('exist').and('not.be.disabled').click()
+    ShopPage.Capcha.should(($iframes) => {
+      const visibleIframes = $iframes.filter(':visible')
+     expect(visibleIframes.length, 'Ожидалась как минимум одна видимая капча').to.be.at.least(1)}).should('be.visible')
     });
 
     it('Verify product search functionality in the shop', () => {

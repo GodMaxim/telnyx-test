@@ -11,6 +11,7 @@ module.exports = defineConfig({
     viewportWidth: 1366,
     viewportHeight: 768,
     experimentalModifyObstructiveThirdPartyCode: true,
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     setupNodeEvents(on, config) {
       on('before:browser:launch', (browser, launchOptions) => {
         if (browser.name === 'chrome' || browser.name === 'electron') {
