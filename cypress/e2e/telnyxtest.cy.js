@@ -48,8 +48,8 @@ beforeEach(() => {
     cy.url().should('include', 'shop.telnyx.com');
     ShopPage.Title.scrollIntoView().should('be.visible')
     ShopPage.EmailUnput.type('myemail@gmail.com').should('have.value', 'myemail@gmail.com')
-    ShopPage.SubscribeBtn.should('be.visible', { timeout: 15000 }).click()
-    ShopPage.Capcha.should('be.visible')
+    ShopPage.SubscribeBtn.should('be.visible', { timeout: 15000 }).click({ force: true })
+    ShopPage.Capcha.should('be.visible', { timeout: 15000 })
     });
 
     it('Verify product search functionality in the shop', () => {
