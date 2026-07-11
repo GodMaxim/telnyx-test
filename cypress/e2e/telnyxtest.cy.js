@@ -40,7 +40,7 @@ beforeEach(() => {
     cy.url().should('include', 'https://partners.telnyx.com/login?apply=true')   
 })
 
-    it.only('Verify the email newsletter subscription functionality', () => {
+    it('Verify the email newsletter subscription functionality', () => {
     HomePage.ShopBtn.scrollIntoView().invoke('attr', 'href').then((href) => {
       cy.visit(href);
       })
