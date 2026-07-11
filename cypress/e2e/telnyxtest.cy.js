@@ -119,7 +119,7 @@ beforeEach(() => {
       cy.url({ timeout: 10000 }).should('include', '/microsoft-teams')
       });
 
-      it.skip('Verify the built-in AI chat agent responsiveness', () => {
+      it.skip(П, () => {
       HomePage.AIChat.scrollIntoView({ block: 'center', timeout: 15000 }).should('be.visible');
       HomePage.setInputChatField('Hello')
       HomePage.SendMessageBtn.click()
