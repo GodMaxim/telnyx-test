@@ -4,7 +4,7 @@ module.exports = defineConfig({
   projectId: 'x83g1c',
   e2e: {
     baseUrl: 'https://telnyx.com',
-    experimentalSessionAndOrigin: true,
+      experimentalSessionAndOrigin: true,
     experimentalMemoryManagement: true,
     numTestsKeptInMemory: 0,
     chromeWebSecurity: false,
